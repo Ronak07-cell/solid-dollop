@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickCalc — Percentage Calculator</title>
-    <style>
+  <style>
     body {
       font-family: -apple-system, sans-serif;
       max-width: 500px;
@@ -76,6 +76,41 @@
       color: #C98A3E;
       margin: 4px 0 0;
     }
+
+    .history {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #DCD8CE;
+    }
+
+    .history h4 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    #historyList {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+
+    #historyList li {
+      font-size: 14px;
+      padding: 8px 10px;
+      background: #F4F2EC;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    #clearHistoryBtn {
+      background: transparent;
+      border: 1px solid #DCD8CE;
+      color: #6B7280;
+      font-size: 13px;
+      padding: 6px 12px;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -99,8 +134,40 @@
       <p>Result:</p>
       <h3 id="resultValue">—</h3>
     </div>
+
+    <div class="history">
+      <h4>History</h4>
+      <ul id="historyList"></ul>
+      <button id="clearHistoryBtn">Clear History</button>
+    </div>
   </div>
+
   <script>
+    function loadHistory() {
+      var history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+      var list = document.getElementById('historyList');
+      list.innerHTML = '';
+
+      if (history.length === 0) {
+        list.innerHTML = '<li>No calculations yet</li>';
+        return;
+      }
+
+      history.slice(0, 5).forEach(function(entry) {
+        var li = document.createElement('li');
+        li.textContent = entry;
+        list.appendChild(li);
+      });
+    }
+
+    function saveToHistory(entry) {
+      var history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+      history.unshift(entry);
+      history = history.slice(0, 10);
+      localStorage.setItem('calcHistory', JSON.stringify(history));
+      loadHistory();
+    }
+
     document.getElementById('calculateBtn').addEventListener('click', function() {
       var percent = parseFloat(document.getElementById('percentValue').value);
       var ofNumber = parseFloat(document.getElementById('ofValue').value);
@@ -112,6 +179,9 @@
 
       var result = (percent / 100) * ofNumber;
       document.getElementById('resultValue').textContent = result;
+      saveToHistory(percent + '% of ' + ofNumber + ' = ' + result);
+      document.getElementById('percentValue').value = '';
+      document.getElementById('ofValue').value = '';
     });
 
     document.getElementById('clearBtn').addEventListener('click', function() {
@@ -119,6 +189,13 @@
       document.getElementById('ofValue').value = '';
       document.getElementById('resultValue').textContent = '—';
     });
+
+    document.getElementById('clearHistoryBtn').addEventListener('click', function() {
+      localStorage.removeItem('calcHistory');
+      loadHistory();
+    });
+
+    loadHistory();
   </script>
 </body>
 </html>
