@@ -27,6 +27,25 @@
       <h3 id="resultValue">—</h3>
     </div>
   </div>
+  <script>
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      var percent = parseFloat(document.getElementById('percentValue').value);
+      var ofNumber = parseFloat(document.getElementById('ofValue').value);
 
+      if (isNaN(percent) || isNaN(ofNumber)) {
+        document.getElementById('resultValue').textContent = 'Enter both numbers';
+        return;
+      }
+
+      var result = (percent / 100) * ofNumber;
+      document.getElementById('resultValue').textContent = result;
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      document.getElementById('percentValue').value = '';
+      document.getElementById('ofValue').value = '';
+      document.getElementById('resultValue').textContent = '—';
+    });
+  </script>
 </body>
 </html>
