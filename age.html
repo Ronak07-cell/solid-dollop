@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator — QuickCalc</title>
+  <style>
+    body {
+      font-family: -apple-system, sans-serif;
+      max-width: 500px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background: #F4F2EC;
+      color: #1B1F27;
+    }
+    h1 { margin-bottom: 4px; }
+    .tagline { color: #6B7280; font-size: 14px; }
+    .calculator {
+      background: white;
+      border: 1px solid #DCD8CE;
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      color: #6B7280;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #DCD8CE;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      margin-right: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    #calculateBtn { background: #14181F; color: white; }
+    #clearBtn {
+      background: transparent;
+      border: 1px solid #B4473E;
+      color: #B4473E;
+    }
+    .result {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #DCD8CE;
+      text-align: center;
+    }
+    #resultValue { font-size: 26px; color: #C98A3E; margin: 4px 0 0; }
+    #daysValue { font-size: 13px; color: #6B7280; margin-top: 6px; }
+    .history { margin-top: 24px; padding-top: 16px; border-top: 1px solid #DCD8CE; }
+    .history h4 { margin: 0 0 10px; font-size: 14px; color: #6B7280; }
+    #historyList { list-style: none; padding: 0; margin: 0 0 12px; }
+    #historyList li {
+      font-size: 14px;
+      padding: 8px 10px;
+      background: #F4F2EC;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    #clearHistoryBtn {
+      background: transparent;
+      border: 1px solid #DCD8CE;
+      color: #6B7280;
+      font-size: 13px;
+      padding: 6px 12px;
+      margin: 0;
+    }
+    nav { margin-bottom: 20px; font-size: 14px; }
+    nav a { color: #6B7280; margin-right: 14px; text-decoration: none; }
+    nav a.active { color: #14181F; font-weight: 600; }
+    footer { margin-top: 30px; text-align: center; font-size: 13px; color: #6B7280; }
+    footer a { color: #6B7280; margin: 0 8px; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Percentage</a>
+    <a href="cgpa.html">CGPA → %</a>
+    <a href="bmi.html">BMI</a>
+    <a href="age.html" class="active">Age</a>
+  </nav>
+
+  <h1>Age Calculator</h1>
+  <p class="tagline">Find your exact age in years, months, and days.</p>
+
+  <div class="calculator">
+    <label for="birthDate">Your Date of Birth</label>
+    <input type="date" id="birthDate">
+
+    <button id="calculateBtn">Calculate</button>
+    <button id="clearBtn">Clear</button>
+
+    <div class="result">
+      <p>Your Age:</p>
+      <h3 id="resultValue">—</h3>
+      <div id="daysValue"></div>
+    </div>
+
+    <div class="history">
+      <h4>History</h4>
+      <ul id="historyList"></ul>
+      <button id="clearHistoryBtn">Clear History</button>
+    </div>
+  </div>
+
+  <footer>
+    <a href="about.html">About</a> ·
+    <a href="contact.html">Contact</a> ·
+    <a href="privacy.html">Privacy Policy</a>
+  </footer>
+
+  <script>
+    var STORAGE_KEY = 'ageHistory';
+
+    function loadHistory() {
+      var history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      var list = document.getElementById('historyList');
+      list.innerHTML = '';
+      if (history.length === 0) {
+        list.innerHTML = '<li>No calculations yet</li>';
+        return;
+      }
+      history.slice(0, 5).forEach(function(entry) {
+        var li = document.createElement('li');
+        li.textContent = entry;
+        list.appendChild(li);
+      });
+    }
+
+    function saveToHistory(entry) {
+      var history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      history.unshift(entry);
+      history = history.slice(0, 10);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+      loadHistory();
+    }
+
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      var birthInput = document.getElementById('birthDate').value;
+
+      if (!birthInput) {
+        document.getElementById('resultValue').textContent = 'Pick a date';
+        document.getElementById('daysValue').textContent = '';
+        return;
+      }
+
+      var birth = new Date(birthInput);
+      var today = new Date();
+
+      var years = today.getFullYear() - birth.getFullYear();
+      var months = today.getMonth() - birth.getMonth();
+      var days = today.getDate() - birth.getDate();
+
+      if (days < 0) {
+        months = months - 1;
+        var prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days = days + prevMonth.getDate();
+      }
+
+      if (months < 0) {
+        years = years - 1;
+        months = months + 12;
+      }
+
+      var totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
+
+      document.getElementById('resultValue').textContent = years + ' years, ' + months + ' months, ' + days + ' days';
+      document.getElementById('daysValue').textContent = 'Total: ' + totalDays + ' days alive';
+      saveToHistory('Born ' + birthInput + ' → ' + years + 'y ' + months + 'm ' + days + 'd');
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      document.getElementById('birthDate').value = '';
+      document.getElementById('resultValue').textContent = '—';
+      document.getElementById('daysValue').textContent = '';
+    });
+
+    document.getElementById('clearHistoryBtn').addEventListener('click', function() {
+      localStorage.removeItem(STORAGE_KEY);
+      loadHistory();
+    });
+
+    loadHistory();
+  </script>
+</body>
+</html>
