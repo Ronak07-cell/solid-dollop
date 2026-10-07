@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ronak07-cell.github.io/solid-dollop/sitemap.xml
+Sitemap: https://ronak07-cell.github.io/sitemap.xml
