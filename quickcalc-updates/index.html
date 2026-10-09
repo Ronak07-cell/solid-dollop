@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickCalc — Percentage Calculator</title>
+    <meta name="description" content="Free online percentage calculator. Instantly find X% of any number, with worked examples, formulas and tips for discounts, marks and tax. No sign-up required.">
+      <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧮</text></svg>">
+    <title>QuickCalc — Percentage Calculator</title>
+  <meta name="google-site-verification" content="Jhk7CMNXw_JzW_fd5dLJUh3aEafIIuulBVNY_ErGcgE" />
+  <style>
+    body {
+      font-family: -apple-system, sans-serif;
+      max-width: 500px;
+      margin: 60px auto;
+      padding: 0 20px;
+      background: #F4F2EC;
+      color: #1B1F27;
+    }
+    nav { margin-bottom: 20px; font-size: 14px; }
+    nav a { color: #6B7280; margin-right: 14px; text-decoration: none; }
+    nav a.active { color: #14181F; font-weight: 600; }
+
+    h1 {
+      margin-bottom: 4px;
+    }
+
+    .calculator {
+      background: white;
+      border: 1px solid #DCD8CE;
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #6B7280;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #DCD8CE;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      margin-right: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    #calculateBtn {
+      background: #14181F;
+      color: white;
+    }
+
+    #clearBtn {
+      background: transparent;
+      border: 1px solid #B4473E;
+      color: #B4473E;
+    }
+
+    .result {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #DCD8CE;
+      text-align: center;
+    }
+
+    #resultValue {
+      font-size: 32px;
+      color: #C98A3E;
+      margin: 4px 0 0;
+    }
+
+    .history {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #DCD8CE;
+    }
+
+    .history h4 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: #6B7280;
+    }
+
+    #historyList {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px;
+    }
+
+    #historyList li {
+      font-size: 14px;
+      padding: 8px 10px;
+      background: #F4F2EC;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+
+    #clearHistoryBtn {
+      background: transparent;
+      border: 1px solid #DCD8CE;
+      color: #6B7280;
+      font-size: 13px;
+      padding: 6px 12px;
+      margin: 0;
+    }
+  
+    .article { margin-top: 36px; line-height: 1.7; font-size: 15px; }
+    .article h2 { font-size: 20px; margin: 28px 0 8px; }
+    .article h3 { font-size: 16px; margin: 20px 0 6px; }
+    .article p, .article li { color: #1B1F27; }
+    .article table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+    .article th, .article td { border: 1px solid #DCD8CE; padding: 8px 10px; text-align: left; }
+    .article th { background: #ECE8DD; }
+    .article code { background: #ECE8DD; padding: 1px 5px; border-radius: 4px; }
+    .related { margin-top: 28px; font-size: 14px; }
+    .related a { color: #C98A3E; margin-right: 12px; }
+  
+    .article { margin-top: 36px; line-height: 1.7; font-size: 15px; }
+    .article h2 { font-size: 20px; margin: 28px 0 8px; }
+    .article h3 { font-size: 16px; margin: 20px 0 6px; }
+    .article p, .article li { color: #1B1F27; }
+    .article table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14px; }
+    .article th, .article td { border: 1px solid #DCD8CE; padding: 8px 10px; text-align: left; }
+    .article th { background: #ECE8DD; }
+    .article code { background: #ECE8DD; padding: 1px 5px; border-radius: 4px; }
+    .related { margin-top: 28px; font-size: 14px; }
+    .related a { color: #C98A3E; margin-right: 12px; }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CJ7YBH7GXH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CJ7YBH7GXH');
+  </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8407584843366378" crossorigin="anonymous"></script>
+</head>
+<body>
+      <nav>
+    <a href="index.html" class="active">Percentage</a>
+    <a href="cgpa.html">CGPA → %</a>
+    <a href="bmi.html">BMI</a>
+    <a href="age.html">Age</a>
+  </nav>
+
+  <h1>QuickCalc</h1>
+  <p>Fast answers to the math questions you actually search for.</p>
+
+  <div class="calculator">
+    <h2>Percentage Calculator</h2>
+
+    <label for="percentValue">Percentage</label>
+    <input type="number" id="percentValue" placeholder="e.g. 15">
+
+    <label for="ofValue">Of this number</label>
+    <input type="number" id="ofValue" placeholder="e.g. 230">
+
+    <button id="calculateBtn">Calculate</button>
+    <button id="clearBtn">Clear</button>
+
+    <div class="result">
+      <p>Result:</p>
+      <h3 id="resultValue">—</h3>
+    </div>
+
+    <div class="history">
+      <h4>History</h4>
+      <ul id="historyList"></ul>
+      <button id="clearHistoryBtn">Clear History</button>
+    </div>
+  </div>
+  
+  
+  <section class="article">
+    <h2>How the percentage calculator works</h2>
+    <p>This calculator answers the most common percentage question: <strong>what is X% of Y?</strong> Enter the percentage and the number, and it multiplies them for you. Percentages show up everywhere, including discounts in shops, exam marks, tax, tips, interest rates and statistics, and a quick way to get the answer saves time and avoids slips with decimals.</p>
+
+    <h2>The percentage formula</h2>
+    <p>A percentage is a fraction out of 100. The core formula is:</p>
+    <p><code>Result = (Percentage ÷ 100) × Number</code></p>
+    <p>For example, 15% of 240 is (15 ÷ 100) × 240 = 0.15 × 240 = <strong>36</strong>.</p>
+
+    <h2>Worked examples</h2>
+    <h3>Example 1: A shop discount</h3>
+    <p>A jacket costs ₹2,500 and is on sale for 20% off. The discount is 20% of 2,500 = 0.20 × 2,500 = ₹500, so you pay ₹2,000.</p>
+    <h3>Example 2: Exam marks</h3>
+    <p>You scored 72 out of 90 and want it as a percentage. Use the reverse form: (72 ÷ 90) × 100 = <strong>80%</strong>.</p>
+    <h3>Example 3: Adding GST or a tip</h3>
+    <p>To add 18% GST to ₹1,200, calculate 18% of 1,200 = ₹216, then add it: ₹1,200 + ₹216 = ₹1,416. A 10% tip on a ₹850 bill is 0.10 × 850 = ₹85.</p>
+
+    <h2>Other useful percentage formulas</h2>
+    <ul>
+      <li><strong>What percent is A of B?</strong> (A ÷ B) × 100</li>
+      <li><strong>Percentage increase:</strong> ((New − Old) ÷ Old) × 100</li>
+      <li><strong>Percentage decrease:</strong> ((Old − New) ÷ Old) × 100</li>
+      <li><strong>Find the original before a discount:</strong> Sale price ÷ (1 − discount rate)</li>
+    </ul>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li>Forgetting to divide by 100, so 15% is entered as 15 instead of 0.15 in a manual calculation.</li>
+      <li>Mixing up the base. A 20% increase followed by a 20% decrease does <em>not</em> return to the starting value, because the second change applies to a larger number.</li>
+      <li>Confusing percentage points with percent. Going from 10% to 12% is a rise of 2 percentage points, but a 20% relative increase.</li>
+    </ul>
+
+    <h2>Frequently asked questions</h2>
+    <h3>How do I calculate 5% of a number quickly?</h3>
+    <p>Find 10% by moving the decimal point one place left, then halve it. For 5% of 340: 10% is 34, half of that is 17.</p>
+    <h3>Can a percentage be more than 100?</h3>
+    <p>Yes. 150% of 40 is 60. Values above 100% simply mean more than the whole, which is common in growth figures.</p>
+    <h3>Is my data stored anywhere?</h3>
+    <p>No. Calculations run in your browser and your history stays on your own device.</p>
+  </section>
+  <p class="related">More calculators: <a href="cgpa.html">CGPA to %</a><a href="bmi.html">BMI</a><a href="age.html">Age</a></p>
+
+  <footer style="margin-top: 30px; text-align: center; font-size: 13px; color: #6B7280;">
+    <a href="about.html">About</a> ·
+    <a href="contact.html">Contact</a> ·
+    <a href="privacy.html">Privacy Policy</a> ·
+    <a href="disclaimer.html">Disclaimer</a>
+  </footer>
+
+  <script>
+    function loadHistory() {
+      var history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+      var list = document.getElementById('historyList');
+      list.innerHTML = '';
+
+      if (history.length === 0) {
+        list.innerHTML = '<li>No calculations yet</li>';
+        return;
+      }
+
+      history.slice(0, 5).forEach(function(entry) {
+        var li = document.createElement('li');
+        li.textContent = entry;
+        list.appendChild(li);
+      });
+    }
+
+    function saveToHistory(entry) {
+      var history = JSON.parse(localStorage.getItem('calcHistory') || '[]');
+      history.unshift(entry);
+      history = history.slice(0, 10);
+      localStorage.setItem('calcHistory', JSON.stringify(history));
+      loadHistory();
+    }
+
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      var percent = parseFloat(document.getElementById('percentValue').value);
+      var ofNumber = parseFloat(document.getElementById('ofValue').value);
+
+      if (isNaN(percent) || isNaN(ofNumber)) {
+        document.getElementById('resultValue').textContent = 'Enter both numbers';
+        return;
+      }
+
+      var result = (percent / 100) * ofNumber;
+      document.getElementById('resultValue').textContent = result;
+      saveToHistory(percent + '% of ' + ofNumber + ' = ' + result);
+      document.getElementById('percentValue').value = '';
+      document.getElementById('ofValue').value = '';
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      document.getElementById('percentValue').value = '';
+      document.getElementById('ofValue').value = '';
+      document.getElementById('resultValue').textContent = '—';
+    });
+
+    document.getElementById('clearHistoryBtn').addEventListener('click', function() {
+      localStorage.removeItem('calcHistory');
+      loadHistory();
+    });
+
+    loadHistory();
+  </script>
+</body>
+</html>
+
+
